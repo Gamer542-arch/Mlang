@@ -1,0 +1,22 @@
+#version 1.0
+#name "Hello World"
+#author "Gosciu"
+#key F6
+
+var name = "Steve"
+var hp = 20
+var is_alive = true
+
+print("Hello " + name + "!")
+print("HP: " + hp)
+print("Alive: " + is_alive)
+
+if (hp > 10) {
+    print("You are healthy!")
+} else {
+    print("You are hurt!")
+}
+
+for (var i = 0; i < 5; i = i + 1) {
+    print("Count: " + i)
+}

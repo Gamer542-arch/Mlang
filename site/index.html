@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLang — Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23E94560'/%3E%3Ctext x='5' y='23' font-size='20' font-weight='bold' fill='white'%3EML%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-icon">ML</span>
+          <div>
+            <span class="logo-text">MLang</span>
+            <span class="logo-version">v1.0.0</span>
+          </div>
+        </div>
+        <div class="logo-sub">Minecraft Scripting Language</div>
+      </div>
+      <nav id="nav"></nav>
+      <div id="settings-panel" class="settings-panel"></div>
+      <div class="sidebar-footer">
+        <button id="theme-toggle" title="Toggle theme">☀</button>
+        <span class="version-badge">1.0</span>
+      </div>
+    </aside>
+
+    <main id="content">
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p id="loading-text">Loading...</p>
+      </div>
+      <div id="markdown-content" class="hidden"></div>
+      <footer><p id="footer-text">MLang &copy; 2026</p></footer>
+    </main>
+
+    <button id="menu-toggle" title="Menu">☰</button>
+  </div>
+
+  <script src="https://unpkg.com/marked@5/marked.min.js"></script>
+  <script src="https://unpkg.com/highlight.js@11/lib/index.min.js"></script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

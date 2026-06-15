@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Node / Vite
+site/node_modules/
+site/dist/
+
+# Java / Gradle
+mlang-mod/.gradle/
+mlang-mod/build/
+mlang-mod/run/
+*.class
+*.jar
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
