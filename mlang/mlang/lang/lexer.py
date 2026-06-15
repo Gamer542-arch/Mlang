@@ -19,6 +19,7 @@ KEYWORDS = {
     "override": TokenType.OVERRIDE,
     "virtual": TokenType.VIRTUAL,
     "class": TokenType.CLASS,
+    "enum": TokenType.ENUM,
     "interface": TokenType.INTERFACE,
     "extends": TokenType.EXTENDS,
     "implements": TokenType.IMPLEMENTS,

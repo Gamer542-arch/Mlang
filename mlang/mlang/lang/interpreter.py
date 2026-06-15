@@ -98,6 +98,44 @@ class GLangInstance:
         self.fields[name] = value
 
 
+class GLangEnum:
+    """GLanguage enum definition."""
+
+    def __init__(self, name: str, values: list[tuple[str, int]]):
+        self.name = name
+        self.values: dict[str, GLangEnumValue] = {}
+        for i, (vname, vval) in enumerate(values):
+            val = vval if vval is not None else i
+            self.values[vname] = GLangEnumValue(self, vname, val)
+
+    def get(self, name: str) -> "GLangEnumValue":
+        if name in self.values:
+            return self.values[name]
+        raise RuntimeError(f"Undefined enum value '{name}' on {self.name}")
+
+
+class GLangEnumValue:
+    """Instance of an enum value."""
+
+    def __init__(self, enum_def: GLangEnum, name: str, value: int):
+        self.enum = enum_def
+        self.name = name
+        self.value = value
+
+    def __eq__(self, other):
+        if isinstance(other, GLangEnumValue):
+            return self.enum.name == other.enum.name and self.value == other.value
+        if isinstance(other, int):
+            return self.value == other
+        return False
+
+    def __int__(self):
+        return self.value
+
+    def __repr__(self):
+        return f"{self.enum.name}.{self.name} = {self.value}"
+
+
 class GLangClass:
     """GLanguage class definition."""
 
@@ -207,6 +245,8 @@ class Interpreter:
             self._execute_function_decl(stmt)
         elif isinstance(stmt, ClassDecl):
             self._execute_class_decl(stmt)
+        elif isinstance(stmt, EnumDecl):
+            self._execute_enum_decl(stmt)
         elif isinstance(stmt, IfStmt):
             self._execute_if(stmt)
         elif isinstance(stmt, WhileStmt):
@@ -406,6 +446,8 @@ class Interpreter:
 
     def _evaluate_getattr(self, expr: GetAttr) -> Any:
         obj = self.evaluate(expr.obj)
+        if isinstance(obj, GLangEnum):
+            return obj.get(expr.name)
         if isinstance(obj, GLangInstance):
             return obj.get(expr.name)
         if isinstance(obj, dict):
@@ -481,6 +523,18 @@ class Interpreter:
 
         klass = GLangClass(stmt.name, parent_class, methods)
         self.environment.define(stmt.name, klass, True)
+
+    def _execute_enum_decl(self, stmt: EnumDecl):
+        values = []
+        for i, v in enumerate(stmt.values):
+            val = i
+            if v.value_expr is not None and isinstance(v.value_expr, int):
+                val = v.value_expr
+            elif v.value_expr is not None:
+                val = self.evaluate(v.value_expr)
+            values.append((v.name, val))
+        enum_def = GLangEnum(stmt.name, values)
+        self.environment.define(stmt.name, enum_def, True)
 
     def _execute_if(self, stmt: IfStmt):
         if self.evaluate(stmt.condition):

@@ -11,15 +11,14 @@ import org.slf4j.LoggerFactory;
 public class MlangMod implements ModInitializer {
     public static final String MOD_ID = "mlang";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    private static BridgeServer wsServer;
-    private static ModConfig config;
     public static MinecraftServer SERVER;
+
+    private BridgeServer wsServer;
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Initializing MLang Bridge...");
-
-        config = ModConfig.load();
+        LOGGER.info("MLang Bridge initializing...");
+        var config = ModConfig.load();
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             SERVER = server;
@@ -30,17 +29,8 @@ public class MlangMod implements ModInitializer {
 
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
             if (wsServer != null) {
-                try { wsServer.stop(1000); } catch (Exception e) { LOGGER.error("Error stopping WS", e); }
+                try { wsServer.stop(1000); } catch (Exception e) { LOGGER.error("WS stop error", e); }
             }
-            LOGGER.info("MLang Bridge stopped");
         });
-    }
-
-    public static ModConfig getConfig() {
-        return config;
-    }
-
-    public static BridgeServer getWebSocketServer() {
-        return wsServer;
     }
 }

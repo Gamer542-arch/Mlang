@@ -247,6 +247,18 @@ class InterfaceDecl(Stmt):
     token: Token = None
 
 @dataclass
+class EnumValue:
+    name: str
+    value_expr: Optional[Any] = None
+    token: Token = None
+
+@dataclass
+class EnumDecl(Stmt):
+    name: str
+    values: list[EnumValue] = field(default_factory=list)
+    token: Token = None
+
+@dataclass
 class Directive(Stmt):
     name: str
     value: Any

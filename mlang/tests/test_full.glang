@@ -1,0 +1,49 @@
+#version 1.0
+#name "MLang Test Suite"
+
+print("=== MLang Test Suite ===")
+
+var name = "Steve"
+var hp = 20
+var alive = true
+
+print("Player: " + name)
+print("HP: " + hp)
+
+func add(a, b) {
+    return a + b
+}
+
+var sum = add(10, 20)
+print("10 + 20 = " + sum)
+
+if (hp > 10) {
+    print("HP: Good")
+} else {
+    print("HP: Low")
+}
+
+var status = alive ? "alive" : "dead"
+print("Status: " + status)
+
+print("Count 0-4:")
+for (var i = 0; i < 5; i = i + 1) {
+    print("  " + i)
+}
+
+print("Countdown:")
+var n = 3
+while (n > 0) {
+    print("  " + n)
+    n = n - 1
+}
+
+var items = ["diamond", "stone", "wood"]
+print("Items: " + len(items))
+
+foreach (item in items) {
+    print("  - " + item)
+}
+
+print("")
+print("ALL TESTS PASSED")

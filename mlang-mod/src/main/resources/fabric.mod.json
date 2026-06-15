@@ -12,9 +12,6 @@
     "entrypoints": {
         "main": [
             "org.mlang.MlangMod"
-        ],
-        "client": [
-            "org.mlang.MlangModClient"
         ]
     },
     "mixins": [],

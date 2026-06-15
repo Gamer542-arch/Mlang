@@ -1,0 +1,39 @@
+#version 1.0
+#name "MLang Demo Script"
+#description "Pelna demonstracja mozliwosci"
+
+print("=== MLang Demo ===")
+
+// Zmienne + funkcja
+func greet(name) {
+    return "Hej " + name + "!"
+}
+
+var msg = greet("Steve")
+print(msg)
+
+// Enum
+enum Item { DIAMOND, STONE, WOOD }
+var pick = Item.DIAMOND
+print("Wybrano: " + pick.name + " = " + pick.value)
+
+// Petla
+print("Countdown:")
+for (var i = 5; i > 0; i = i - 1) {
+    print("  " + i)
+}
+
+// Tablica + foreach
+var mobs = ["zombie", "creeper", "skeleton"]
+foreach (m in mobs) {
+    print("  Mob: " + m)
+}
+
+// Warunek
+if (pick == Item.DIAMOND) {
+    print("Masz DIAMENT!")
+} else {
+    print("Nie masz diamentu")
+}
+
+print("=== DONE ===")

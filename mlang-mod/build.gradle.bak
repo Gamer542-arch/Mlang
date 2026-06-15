@@ -11,9 +11,11 @@ base {
 }
 
 loom {
+    splitEnvironmentSourceSets()
     mods {
         "mlang" {
             sourceSet sourceSets.main
+            sourceSet sourceSets.client
         }
     }
 }
@@ -60,15 +62,6 @@ java {
     withSourcesJar()
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
-}
-
-// Hot-reload: rebuild + copy JAR to mods folder
-tasks.register('installMod', Copy) {
-    dependsOn remapJar
-    from "${buildDir}/libs"
-    into "H:/Crystal-Launcher/instances/u.Axiom/.minecraft/mods"
-    include "mlang-mod-${project.version}.jar"
-    exclude "*-sources.jar"
 }
 
 jar {

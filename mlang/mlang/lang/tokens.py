@@ -24,6 +24,7 @@ class TokenType(Enum):
     VIRTUAL = auto()
     CLASS = auto()
     INTERFACE = auto()
+    ENUM = auto()
     EXTENDS = auto()
     IMPLEMENTS = auto()
     FUNC = auto()

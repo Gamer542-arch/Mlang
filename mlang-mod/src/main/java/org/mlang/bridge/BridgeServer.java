@@ -44,7 +44,7 @@ public class BridgeServer extends WebSocketServer {
 
             Boolean auth = authenticated.getOrDefault(conn, false);
             if (!auth && !method.equals("auth")) {
-                sendError(conn, json, -32000, "Not authenticated");
+                sendError(conn, json.has("id") ? json.get("id").getAsString() : null, -32000, "Not authenticated");
                 return;
             }
 

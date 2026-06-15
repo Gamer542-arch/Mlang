@@ -19,13 +19,12 @@ public class ModConfig {
     public static ModConfig load() {
         if (Files.exists(CONFIG_PATH)) {
             try {
-                String json = Files.readString(CONFIG_PATH);
-                return GSON.fromJson(json, ModConfig.class);
+                return GSON.fromJson(Files.readString(CONFIG_PATH), ModConfig.class);
             } catch (IOException e) {
-                MlangMod.LOGGER.error("Failed to load config, using defaults", e);
+                MlangMod.LOGGER.error("Failed to load config", e);
             }
         }
-        ModConfig config = new ModConfig();
+        var config = new ModConfig();
         config.save();
         return config;
     }

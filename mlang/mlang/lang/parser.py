@@ -71,6 +71,8 @@ class Parser:
             return self.class_decl()
         if self.check(TokenType.INTERFACE):
             return self.interface_decl()
+        if self.check(TokenType.ENUM):
+            return self.enum_decl()
         if self.check(TokenType.PUBLIC, TokenType.PRIVATE, TokenType.PROTECTED):
             return self.class_member()
         if self.check(TokenType.FUNC):
@@ -491,6 +493,26 @@ class Parser:
                 methods.append(self.function_decl())
         self.consume(TokenType.RBRACE, "Expected '}'")
         return InterfaceDecl(name, methods)
+
+    def enum_decl(self) -> EnumDecl:
+        self.consume(TokenType.ENUM, "Expected 'enum'")
+        name = self.consume(TokenType.IDENTIFIER, "Expected enum name").value
+        self.consume(TokenType.LBRACE, "Expected '{'")
+        values = []
+        while not self.check(TokenType.RBRACE) and not self.check(TokenType.EOF):
+            val_name = self.consume(TokenType.IDENTIFIER, "Expected enum value").value
+            val_expr = None
+            if self.match(TokenType.ASSIGN):
+                tok = self.current
+                if tok.type in (TokenType.NUMBER_INT,):
+                    val_expr = self.consume(tok.type, "Expected number").value
+                else:
+                    self.consume(tok.type, "Expected number")
+            values.append(EnumValue(val_name, val_expr))
+            if not self.match(TokenType.COMMA):
+                break
+        self.consume(TokenType.RBRACE, "Expected '}'")
+        return EnumDecl(name, values)
 
     # --- Expressions ---
     def expression_stmt(self) -> ExpressionStmt:

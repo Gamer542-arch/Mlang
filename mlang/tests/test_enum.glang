@@ -1,0 +1,50 @@
+#version 1.0
+#name "Enum Test Suite"
+
+print("=== ENUM TESTS ===")
+
+// Basic enum
+enum Color {
+    RED,
+    GREEN,
+    BLUE
+}
+
+var c = Color.RED
+print("Color: " + c.name + " = " + c.value)
+
+var g = Color.GREEN
+print("Green: " + g.value)
+
+// Enum with explicit values
+enum Status {
+    OK = 200,
+    NOT_FOUND = 404,
+    ERROR = 500
+}
+
+var s = Status.OK
+print("OK = " + s.value)
+
+var nf = Status.NOT_FOUND
+print("404 = " + nf.value)
+
+// Enum comparison
+if (c == Color.RED) {
+    print("RED matched!")
+}
+
+// Use enum in comparison with int
+if (s.value == 200) {
+    print("Status 200 OK!")
+}
+
+// Enum used in switch-like logic
+if (c.value == Color.BLUE.value) {
+    print("is blue")
+} else {
+    print("not blue (got: " + c.value + ")")
+}
+
+print("")
+print("ALL ENUM TESTS PASSED")
